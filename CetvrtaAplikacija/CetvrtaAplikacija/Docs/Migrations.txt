@@ -1,0 +1,5 @@
+﻿Enable-Migrations -ContextTypeName ApplicationDbContext -MigrationsDirectory Migrations\CAMigrations
+
+Add-Migration -ConfigurationTypeName PostsPortal.Migrations.CAMigrations.Configuration "Aj majt fak tingz ap hir"
+
+Update-Database -ConfigurationTypeName PostsPortal.Migrations.CAMigrations.Configuration 

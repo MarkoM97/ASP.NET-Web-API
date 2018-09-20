@@ -1,0 +1,50 @@
+﻿
+<div id="createPostModal" class="modal">
+    <div class="modal-dialog" style="width:20em;margin-top:10em;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="margin-left:1em;">Create post</h4>
+                <p id="loginModalMessage" style="background-color:forestgreen;display:none;"></p>
+            </div>
+            <div class="modal-body">
+                <div style="padding:1em;">
+                    <input id="createPostInputName" class="form-control input-sm" placeholder="Name" />
+                    <input id="createPostInputIcon" type="file" name="ImageFile" />
+                    <button id="createPostButtonSubmit" class="btn btn-default btn-sm" style="width:100%;margin-top:1em;">Create</button>
+
+                    @*<form name="form1" method="post" action="api/Post/Create" enctype="multipart/form-data" >
+
+                        <div>
+                            <input name="postName" placeholder="Name"/>
+                            <label>
+
+                                Brows File
+                            </label>
+
+                            <input name="imageFile" type="file" />
+
+                        </div>
+
+                        <div>
+
+                            <input type="submit" value="Upload" />
+
+                        </div>
+
+                    </form>*@
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="closeCreatePostModalSubmit" style="display:none;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+
+
+</script>

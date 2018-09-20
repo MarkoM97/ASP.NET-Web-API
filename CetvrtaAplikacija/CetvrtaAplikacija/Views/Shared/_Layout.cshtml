@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/My_Scripts/Post.js"></script>
+    <script src="~/Scripts/My_Scripts/Modals.js"></script>
+    <link href="~/Content/InputXS.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            @Html.Partial("_LoginPartial")
+            <div class="navbar-header">
+                @Html.ActionLink("Youtube", "Index", "Video", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-form">
+                <input id="SearchParameter" class="form-control input-sm" placeholder="Search" style="width:40%;" />
+                <button id="SearchButtonSubmit" class="btn btn-default btn-sm">Search</button>
+            </div>
+            <div class="navbar-collapse collapse" style="margin-top:-3.3em;">
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        
+        @RenderBody()
+
+        <hr />
+        <footer></footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

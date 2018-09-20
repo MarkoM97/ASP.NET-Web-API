@@ -1,0 +1,67 @@
+﻿<div id="loginModal" class="modal">
+    <div class="modal-dialog" style="width:20em;margin-top:10em;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="margin-left:1em;">Login</h4>
+                <p id="loginModalMessage" style="background-color:forestgreen;display:none;"></p>
+            </div>
+            <div class="modal-body">
+                <div style="padding:1em;">
+                    <input id="loginInputEmail" class="form-control input-sm" placeholder="Email" />
+                    <input id="loginInputPassword" class="form-control input-sm" placeholder="Password" type="password" style="margin-top:1em;" />
+                    <button id="loginButtonSubmit" class="btn btn-default btn-sm" style="width:100%;margin-top:1em;">Login</button>
+                    <button id="loginGoogle" class="btn btn-default btn-xs" style="width:100%;margin:1em 0 0 0;padding:0;"><img src="~/Content/AppPhotos/Google.jpg" style="max-height:2em;" /></button>
+                    <button id="loginFacebook" class="btn btn-default btn-xs" style="width:100%;margin:1em 0 0 0;padding:0;background-color:#3052c0;"><img src="~/Content/AppPhotos/Facebook.jpg" style="max-height:2em;" /></button>
+                </div>
+
+                <div class="login-help">
+                    <a id="showRegisterModal" href="#" style="margin-left:1em;">Register</a>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;">
+
+                <button id="closeLoginModalSubmit" style="display:none;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+<script src="~/Scripts/My_Scripts/GoogleAuthentication.js"></script>
+<script>
+
+    getAccessToken();
+
+    $('#showRegisterModal').on('click', function (e) {
+        e.preventDefault();
+        $('#closeLoginModalSubmit').trigger('click');
+        $('#registerModal').modal('show');
+
+    });
+
+    $('#loginButtonSubmit').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/Token',
+            type: 'POST',
+            contentType: 'application/json',
+            data: {
+                username: $('#loginInputEmail').val(),
+                password: $('#loginInputPassword').val(),
+                grant_type: 'password'
+            },
+            success: function (e) {
+                localStorage.setItem('accessToken', e.access_token);
+                localStorage.setItem('userName', e.userName);
+                //localStorage.setItem('icon', e.userIcon)
+                $('#closeLoginModalSubmit').trigger('click');
+                populateAccountSection();
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
+</script>

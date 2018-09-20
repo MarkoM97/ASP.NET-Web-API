@@ -1,0 +1,90 @@
+﻿
+<script src="~/Scripts/My_Scripts/Utils.js"></script>
+<div id="accountModal" class="modal">
+    <div class="modal-dialog" style="width:20em;margin-top:10em;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 style="margin-left:1em;">Account</h4>
+                <p id="loginModalMessage" style="background-color:forestgreen;display:none;"></p>
+            </div>
+            <div class="modal-body">
+                <div style="padding:1em;">
+                    <div style="text-align:center;">
+                        <img id="accountInputIconImage" src="~/Content/UserPhotos/avatar.png" class="hoverable" style="max-height:4em;" />
+
+                    </div>
+                    <input id="accountInputPassword" class="form-control input-sm" placeholder="New password" type="password" style="margin-top:1em;"/>
+                    <input id="accountInputConfirmPassword" class="form-control input-sm" placeholder="Confirm new password" type="password" style="margin-top:1em;" />
+                    <input id="accountInputIcon" type="file" style="display:none" />
+
+
+                    
+                </div>
+
+                <div class="account-help">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p style="font-size:0.7em;opacity:0.9;float:left;">to update account type in current password</p>
+                <input id="accountInputCurrentPassword" class="form-control input-sm" placeholder="Current password" type="password" style="margin-top:1em;"/>
+                <button id="accountUpdateButtonSubmit" class="btn btn-default btn-sm" style="width:100%;margin-top:1em;">Update</button>
+                <button id="closeLoginModalSubmit" style="display:none;" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $('#accountInputIconImage').on('click', function (e) {
+        e.preventDefault();
+        $('#accountInputIcon').trigger('click');
+
+    });
+
+    $(document).on('change', '#accountInputIcon', function (e) {
+        e.preventDefault();
+        if (this.files[0] != null) {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function (event) {
+                $('#accountInputIconImage').attr('src', event.target.result);
+            }
+        }
+    });
+
+
+    $('#accountUpdateButtonSubmit').on('click', function (e) {
+        e.preventDefault();
+        var userData = new FormData();
+        userData.append('currentPassword', $('#accountInputCurrentPassword').val());
+        if ($('#accountInputPassword').val() == $('#accountInputConfirmPassword').val() && $('#accountInputPassword').val() != '') {
+            userData.append('newPassword', $('#accountInputPassword').val());
+        }
+        userData.append('newIcon', $('#accountInputIcon')[0].files[0]);
+        $.ajax({
+            url: 'api/Account/Update',
+            type: 'post',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: userData,
+            success: function (e) {
+                location.reload();
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        })
+
+    });
+
+    
+
+
+
+</script>

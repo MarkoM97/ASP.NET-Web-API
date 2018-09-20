@@ -1,0 +1,58 @@
+﻿<div id="registerModal" class="modal">
+    <div class="modal-dialog" style="width:20em;margin-top:10em;">
+        <div class="modal-content">
+            <div class="modal-header"><h4 style="margin-left:1em;">Register</h4></div>
+            <div class="modal-body">
+                <div style="padding:1em;">
+                    <input id="registerInputEmail" class="form-control input-sm" placeholder="Email" />
+                    <input id="registerInputUsername" class="form-control input-sm" placeholder="Username" style="margin-top:1em;" />
+                    <input id="registerInputPassword" class="form-control input-sm" placeholder="Password" type="password" style="margin-top:1em;" />
+                    <input id="registerInputConfirmPassword" class="form-control input-sm" placeholder="Confirm password" type="password" style="margin-top:1em;" />
+                    <button id="registerButtonSubmit" class="btn btn-default btn-sm" style="width:100%;margin-top:1em;">Register</button>
+                </div>
+                <div class="login-help">
+                    <button id="closeRegisterModalSubmit" style="display:none;" data-dismiss="modal">Close</button>
+                    <a href="#" style="margin-left:1em;">Login</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer"></div>
+    </div>
+</div>
+<script>
+
+    $('#registerButtonSubmit').on('click', function (e) {
+        $.ajax({
+            url: '/api/Account/Register',
+            type: 'POST',
+            data: {
+                email: $('#registerInputEmail').val(),
+                username: $('#registerInputUsername').val(),
+                password: $('#registerInputPassword').val(),
+                confirmpassword: $('#registerInputConfirmPassword').val()
+            },
+            success: function (e) {
+                if (e.message == 'Success') {
+                    $('#closeRegisterModalSubmit').trigger('click');
+
+
+                    $('#loginModal').modal('show');
+                    $('#loginModalMessage').text('Registration successfull. Please login');
+                    $('#loginModalMessage').attr('style', 'background-color:green;color:white;');
+
+                    $('#registerInputEmail').val('');
+                    $('#registerInputPassword').val('');
+                    $('#registerInputConfirmPassword').val('');
+                } else {
+                    console.log(e.message);
+                }
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+    });
+
+    
+
+</script>
